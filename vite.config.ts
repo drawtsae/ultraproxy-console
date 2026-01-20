@@ -10,7 +10,19 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [react(), viteTsconfigPaths(), svgrPlugin(), tsconfigPaths(), requireTransform({})],
+  plugins: [
+    react(),
+    viteTsconfigPaths(),
+    svgrPlugin({
+      include: '**/*.svg',
+      svgrOptions: {
+        exportType: 'named',
+        namedExport: 'ReactComponent'
+      }
+    }),
+    tsconfigPaths(),
+    requireTransform({})
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
@@ -18,6 +30,6 @@ export default defineConfig({
   },
   server: {
     port: 5175,
-    host: true,
+    host: true
   }
 });
